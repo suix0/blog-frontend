@@ -1,1 +1,19 @@
 @import "tailwindcss";
+
+@theme {
+  --color-frutiger: rgba(255, 255, 255, 0.2);
+  --shadow-frutiger: 0 4px 20px rgba(0, 0, 0, 0.1);
+  --border-frutiger: 1px solid rgba(255, 255, 255, 0.3);
+  --spacing-frutiger: 1rem 1.5rem;
+}
+
+body {
+  height: 100svh;
+}
+
+#root {
+  display: grid;
+  grid-template-columns: 1fr 1200px 1fr;
+
+  height: 100%;
+}
