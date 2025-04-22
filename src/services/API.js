@@ -16,7 +16,22 @@ const API = () => {
     }
   };
 
-  return { getPosts };
+  const getPost = async (postId) => {
+    try {
+      const res = await fetch(`${serverUrl}/api/posts/${postId}`, {
+        mode: "cors",
+      });
+      if (!res.ok) {
+        throw new Error("Error in fetching data.");
+      }
+      const data = await res.json();
+      return data.post;
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  return { getPosts, getPost };
 };
 
 const server = API();
