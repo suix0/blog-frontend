@@ -1,6 +1,6 @@
 import { useEffect, useState, createContext } from "react";
 import Header from "../layouts/Header";
-import RecentPosts from "../layouts/RecentPosts";
+import RecentPosts from "../features/posts/RecentPosts";
 import server from "../services/API";
 
 const PostContext = createContext(null);
@@ -40,9 +40,9 @@ const Home = () => {
           <section className="border-frutiger shadow-frutiger p-frutiger rounded-frutiger backdrop-blur-frutiger w-full relative">
             <h1 className="font-bold text-2xl">{post.title}</h1>
             <p>{post.content}</p>
-            <div className="flex gap-1.5 absolute bottom-0">
-              <img src="/like.svg" alt="Likes count" className="w-[24px]" />
-              <p>{post.likes}</p>
+            <div className="flex gap-1.5 absolute bottom-0 mb-4 items-center">
+              <img src="/like.svg" alt="Likes count" className="w-9" />
+              <p className="text-xl">{post.likes}</p>
             </div>
           </section>
         )}

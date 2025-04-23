@@ -1,6 +1,6 @@
-import PostCard from "../components/PostCard";
+import PostCard from "../../components/PostCard";
 import { useContext } from "react";
-import { PostContext } from "../pages/Home";
+import { PostContext } from "../../pages/Home";
 
 const RecentPosts = () => {
   const { posts } = useContext(PostContext);
