@@ -3,7 +3,7 @@ const Button = ({ onClick, type = "button", children }) => {
     <button
       type={type}
       onClick={onClick}
-      className="bg-frutiger p-1 w-full mt-4 rounded-lg shadow-frutiger"
+      className="bg-frutiger p-1.5 w-full mt-4 rounded-lg shadow-frutiger"
     >
       {children}
     </button>
@@ -28,7 +28,7 @@ const InputField = ({
         onChange={(e) =>
           setUserCredentials({ ...state, [htmlFor]: e.target.value })
         }
-        className="bg-frutiger outline-frutiger rounded-lg p-1 shadow-frutiger"
+        className="bg-frutiger outline-frutiger rounded-lg p-1.5 shadow-frutiger"
       />
     </label>
   );

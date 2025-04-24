@@ -1,19 +1,19 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, InputField } from "../components/FormElements";
-import { Link } from "react-router-dom";
 import Header from "../layouts/Header";
 
-const SignIn = () => {
+const Register = () => {
   const [userCredentials, setUserCredentials] = useState({
     username: "",
     password: "",
+    confirmPassword: "",
   });
   const [errors, setErrors] = useState(null);
   const navigate = useNavigate();
 
   const submitForm = async () => {
-    const url = "http://localhost:5000/api/users/sessions";
+    const url = "http://localhost:5000/api/users";
     try {
       const response = await fetch(url, {
         method: "POST",
@@ -27,17 +27,15 @@ const SignIn = () => {
       // Display error message for incorrect credentials
       if (!response.ok) {
         const data = await response.json();
-        setErrors([data]);
+        setErrors(data.errors);
         return;
       }
 
       // Remove errors if there exists after successful authentication
       // Then save token to local storage
       setErrors(null);
-      const token = await response.json();
-      localStorage.setItem("token", JSON.stringify(token.token));
-      setUserCredentials({ username: "", password: "" });
-      navigate("/");
+      setUserCredentials({ username: "", password: "", confirmPassword: "" });
+      navigate("/signin");
     } catch (err) {
       console.error(err);
     }
@@ -68,23 +66,25 @@ const SignIn = () => {
           >
             Password
           </InputField>
+          <InputField
+            value={userCredentials.confirmPassword}
+            setUserCredentials={setUserCredentials}
+            state={userCredentials}
+            htmlFor="confirmPassword"
+          >
+            Confirm Password
+          </InputField>
           <Button type="submit">Submit</Button>
-          <hr className="border-emerald-400 mt-2" />
-          <p>
-            Don't have an account?{" "}
-            <span>
-              <Link className="underline" to="/register">
-                Register here
-              </Link>
-            </span>
-          </p>
         </form>
         {errors !== null && (
           <ul>
             {errors.map((err) => {
               return (
-                <li className="text-red-700" key={crypto.randomUUID()}>
-                  {err.error}
+                <li
+                  className="text-red-700 text-[12px]"
+                  key={crypto.randomUUID()}
+                >
+                  {err.msg}
                 </li>
               );
             })}
@@ -95,4 +95,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default Register;
