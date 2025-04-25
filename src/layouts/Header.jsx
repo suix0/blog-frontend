@@ -1,17 +1,6 @@
 import { NavLink } from "react-router-dom";
-import { useState } from "react";
-import { jwtDecode } from "jwt-decode";
 
-const Header = () => {
-  const [username, setUsername] = useState(null);
-  // const navigate = useNavigate();
-
-  if (JSON.parse(localStorage.getItem("token")) && username === null) {
-    const token = JSON.parse(localStorage.getItem("token"));
-    const decoded = jwtDecode(token);
-    setUsername(decoded.user.username);
-  }
-
+const Header = ({ setUsername, username }) => {
   const signOut = () => {
     localStorage.removeItem("token");
     setUsername(null);

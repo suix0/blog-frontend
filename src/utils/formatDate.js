@@ -14,6 +14,7 @@ const formatDates = (postsArr) => {
 };
 
 const formatDate = (post) => {
+  console.log(post);
   const newDate = format(new Date(post.createdAt), "MM/dd/yyyy, H:m aaa");
   post.createdAt = newDate;
   return post;
