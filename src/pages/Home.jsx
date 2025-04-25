@@ -2,6 +2,7 @@ import { useEffect, useState, createContext } from "react";
 import Header from "../layouts/Header";
 import RecentPosts from "../features/posts/RecentPosts";
 import server from "../services/API";
+import { formatDates, formatDate } from "../utils/formatDate";
 
 const PostContext = createContext(null);
 
@@ -13,9 +14,12 @@ const Home = () => {
   // Retrieve all posts
   useEffect(() => {
     const fetchPosts = async () => {
-      const data = await server.getPosts();
-      setPosts(data);
-      setPostId(data[0].id);
+      let data = await server.getPosts();
+
+      // Format dates of posts
+      let dataFormatted = formatDates(data);
+      setPosts(dataFormatted);
+      setPostId(dataFormatted[0].id);
     };
     fetchPosts();
   }, []);
@@ -24,7 +28,8 @@ const Home = () => {
     const fetchPost = async () => {
       if (postId !== undefined) {
         const data = await server.getPost(postId);
-        setPost(data[0]);
+        const dataFormatted = formatDate(data[0]);
+        setPost(dataFormatted);
       } else {
         return;
       }
@@ -39,7 +44,8 @@ const Home = () => {
         {post !== undefined && (
           <section className="border-frutiger shadow-frutiger p-frutiger rounded-frutiger backdrop-blur-frutiger w-full relative">
             <h1 className="font-bold text-2xl">{post.title}</h1>
-            <p>{post.content}</p>
+            <p className="text-neutral-600 text-xs">{post.createdAt}</p>
+            <p className="mt-4">{post.content}</p>
             <div className="flex gap-1.5 absolute bottom-0 mb-4 items-center">
               <img src="/like.svg" alt="Likes count" className="w-9" />
               <p className="text-xl">{post.likes}</p>

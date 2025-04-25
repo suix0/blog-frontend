@@ -10,6 +10,7 @@ const PostCard = ({ post }) => {
         onClick={() => setPostId(post.id)}
       >
         <p className="font-bold text-xl">{post.title}</p>
+        <p className="text-neutral-600 text-xs">{post.createdAt}</p>
         <p>{post.content}</p>
       </div>
       <div className="flex gap-1.5">
