@@ -10,12 +10,11 @@ const PostCard = ({ post }) => {
         onClick={() => setPostId(post.id)}
       >
         <p className="font-bold text-xl">{post.title}</p>
+        <p className="text-xs">
+          blog by: <span className="font-bold">{post.User.username}</span>
+        </p>
         <p className="text-neutral-600 text-xs">{post.createdAt}</p>
         <p>{post.content}</p>
-      </div>
-      <div className="flex gap-1.5">
-        <img src="/like.svg" alt="Like count" className="w-[18px]" />
-        <p>{post.likes}</p>
       </div>
     </div>
   );

@@ -32,7 +32,6 @@ const API = () => {
   };
 
   const postComments = async (postId, comment) => {
-    console.log(comment);
     try {
       const res = await fetch(`${serverUrl}/api/posts/${postId}/comments`, {
         mode: "cors",
@@ -55,7 +54,43 @@ const API = () => {
     }
   };
 
-  return { getPosts, getPost, postComments };
+  const postLike = async (postId) => {
+    try {
+      const res = await fetch(`${serverUrl}/api/posts/${postId}/likes`, {
+        mode: "cors",
+        method: "put",
+      });
+
+      if (!res.ok) {
+        throw new Error("Error in posting like");
+      }
+      const data = await res.json();
+      console.log(data.updatedPost);
+      return data.updatedPost;
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const postUnlike = async (postId) => {
+    try {
+      const res = await fetch(`${serverUrl}/api/posts/${postId}/likes`, {
+        mode: "cors",
+        method: "delete",
+      });
+
+      if (!res.ok) {
+        throw new Error("Error in posting like");
+      }
+      const data = await res.json();
+      console.log(data.updatedPost);
+      return data.updatedPost;
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  return { getPosts, getPost, postComments, postLike, postUnlike };
 };
 
 const server = API();

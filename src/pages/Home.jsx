@@ -79,10 +79,6 @@ const Home = () => {
                 <p className="text-neutral-600 text-xs">{post.createdAt}</p>
               </div>
               <p className="mt-4">{post.content}</p>
-              <div className="flex gap-1.5 absolute bottom-0 mb-4 items-center">
-                <img src="/like.svg" alt="Likes count" className="w-9" />
-                <p className="text-xl">{post.likes}</p>
-              </div>
             </section>
           </div>
         )}
@@ -96,7 +92,6 @@ const Home = () => {
         </h1>
         {comments !== null &&
           comments.map((comment) => {
-            console.log(comment);
             return (
               <Comment comment={comment} key={crypto.randomUUID()}></Comment>
             );
