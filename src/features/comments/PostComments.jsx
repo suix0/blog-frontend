@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { InputField } from "../../components/FormElements";
 import server from "../../services/API";
+import { formatDate } from "../../utils/formatDate";
 
 const PostComments = ({ postId, username, comments, setComments }) => {
   const [displayError, setDisplayError] = useState(false);
@@ -10,8 +10,10 @@ const PostComments = ({ postId, username, comments, setComments }) => {
     if (username === null) {
       setDisplayError(true);
     } else {
-      const newComment = await server.postComments(postId, comment);
-      setComments([...comments, newComment]);
+      let newComment = await server.postComments(postId, comment);
+      console.log(newComment);
+      newComment = formatDate(newComment);
+      setComments([newComment, ...comments]);
       setComment("");
       setDisplayError(false);
     }
