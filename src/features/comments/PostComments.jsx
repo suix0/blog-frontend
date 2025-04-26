@@ -1,8 +1,20 @@
+import { useState } from "react";
 import { InputField } from "../../components/FormElements";
+import server from "../../services/API";
 
-const PostComments = ({ postId, username }) => {
-  const postComments = async () => {
-    const url = `https://localhost:5000/api/posts/${postId}/comments`;
+const PostComments = ({ postId, username, comments, setComments }) => {
+  const [displayError, setDisplayError] = useState(false);
+  const [comment, setComment] = useState("");
+
+  const handleSubmit = async () => {
+    if (username === null) {
+      setDisplayError(true);
+    } else {
+      const newComment = await server.postComments(postId, comment);
+      setComments([...comments, newComment]);
+      setComment("");
+      setDisplayError(false);
+    }
   };
 
   return (
@@ -13,12 +25,12 @@ const PostComments = ({ postId, username }) => {
           alt="Account icon default"
           className="w-[24px] mb-2"
         />
-        <p>{username}</p>
+        <p>{username === null ? "" : username}</p>
       </div>
       <form
-        action={postComments}
+        action={handleSubmit}
         method="POST"
-        className="flex w-fit gap-2 items-end"
+        className="flex w-fit gap-2 items-end pb-4"
       >
         <textarea
           type="text"
@@ -26,6 +38,9 @@ const PostComments = ({ postId, username }) => {
           id="comment"
           placeholder="Write a comment"
           className="resize-none border bg-frutiger p-2 shadow-frutiger  rounded-frutiger backdrop-blur-frutiger"
+          value={comment}
+          onChange={(e) => setComment(e.target.value)}
+          required
         />
         <button
           type="submit"
@@ -33,6 +48,11 @@ const PostComments = ({ postId, username }) => {
         >
           Post
         </button>
+        {displayError && (
+          <p className="text-red-500">
+            You need to be logged in to make a comment.
+          </p>
+        )}
       </form>
     </>
   );

@@ -10,9 +10,15 @@ import { jwtDecode } from "jwt-decode";
 const PostContext = createContext(null);
 
 const Home = () => {
+  // For posts in aside
   const [posts, setPosts] = useState([]);
+
+  // For post to display
   const [postId, setPostId] = useState(undefined);
   const [post, setPost] = useState(undefined);
+  const [comments, setComments] = useState(null);
+
+  // Username to display in the UI
   const [username, setUsername] = useState(null);
 
   // Retrieve all posts
@@ -32,17 +38,24 @@ const Home = () => {
     const fetchPost = async () => {
       if (postId !== undefined) {
         const data = await server.getPost(postId);
+
         // Format dates of post to display
         let dataFormatted = formatDate(data[0]);
+
         // Format comments of post to display
         dataFormatted.comments = formatDates(dataFormatted.comments);
         setPost(dataFormatted);
+        setComments(dataFormatted.comments);
       } else {
         return;
       }
     };
     fetchPost();
   }, [postId]);
+
+  if (post && comments === null) {
+    setComments(post.comments);
+  }
 
   if (JSON.parse(localStorage.getItem("token")) && username === null) {
     const token = JSON.parse(localStorage.getItem("token"));
@@ -79,10 +92,10 @@ const Home = () => {
       </main>
       <section className="w-[80%] mt-4 ml-2">
         <h1 className="text-lg font-bold">
-          comments ({post && post.comments.length})
+          comments ({comments !== null && comments.length})
         </h1>
-        {post &&
-          post.comments.map((comment) => {
+        {comments !== null &&
+          comments.map((comment) => {
             console.log(comment);
             return (
               <Comment comment={comment} key={crypto.randomUUID()}></Comment>
@@ -90,7 +103,9 @@ const Home = () => {
           })}
         <PostComments
           postId={post && post.id}
-          username={username !== null && username}
+          username={username}
+          comments={comments}
+          setComments={setComments}
         ></PostComments>
       </section>
     </div>
