@@ -18,7 +18,18 @@ const Header = () => {
   }
 
   return (
-    <header className="bg-frutiger rounded-frutiger backdrop-blur-frutiger shadow-frutiger border-frutiger p-frutiger mt-4">
+    <header
+      className=" mt-4 mb-4"
+      style={{
+        background: "rgba(255, 255, 255, 0.27)",
+        borderRadius: "16px",
+        boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
+        backdropFilter: "blur(1.5px)",
+        WebkitBackdropFilter: "blur(1.5px)",
+        border: "1px solid rgba(255, 255, 255, 0.62)",
+        padding: "10px",
+      }}
+    >
       <nav className={username ? "flex justify-between" : "flex justify-end"}>
         {username && <p className="italic text-lg">Welcome, {username}</p>}
         <ul className="col-start-2 col-end-3 flex gap-4">

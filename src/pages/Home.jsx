@@ -68,7 +68,18 @@ const Home = () => {
       <main className="flex pt-4 justify-between gap-4">
         {post !== undefined && (
           <div className="flex flex-col w-full">
-            <section className="border-frutiger shadow-frutiger p-frutiger rounded-frutiger backdrop-blur-frutiger w-full h-full">
+            <section
+              className=" w-full h-full"
+              style={{
+                background: "rgba(255, 255, 255, 0.27)",
+                borderRadius: "16px",
+                boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
+                backdropFilter: "blur(1.5px)",
+                WebkitBackdropFilter: "blur(1.5px)",
+                border: "1px solid rgba(255, 255, 255, 0.62)",
+                padding: "10px",
+              }}
+            >
               <h1 className="font-bold text-4xl">{post.title}</h1>
               <div className="flex flex-col gap-1 mt-4">
                 <p>

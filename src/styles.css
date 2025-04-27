@@ -1,13 +1,13 @@
 @import "tailwindcss";
 
 @theme {
-  --color-frutiger: rgba(255, 255, 255, 0.15);
-  --shadow-frutiger: 0 10px 40px rgba(0, 0, 0, 0.05),
-    0 2px 10px rgba(0, 0, 0, 0.03);
-  --border-frutiger: 1px solid rgba(255, 255, 255, 0.3);
-  --radius-frutiger: 1rem;
-  --spacing-frutiger: 1rem 1.5rem;
-  --blur-frutiger: blur(10px);
+  --shadow-left: -10px 14px 1px -8px rgba(0, 0, 0, 1);
+  --color-frutiger: rgba(255, 255, 255, 0.27);
+  --shadow-frutiger: 0 4px 30px rgba(0, 0, 0, 0.1);
+  --border-frutiger: 1px solid rgba(255, 255, 255, 0.62);
+  --radius-frutiger: 16px;
+  --spacing-frutiger: 10px;
+  --blur-frutiger: blur(1.5px);
 }
 
 body {
