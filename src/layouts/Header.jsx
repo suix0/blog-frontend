@@ -1,10 +1,21 @@
 import { NavLink } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
+import { useState } from "react";
 
-const Header = ({ setUsername, username }) => {
+const Header = () => {
+  // Username to display in the UI
+  const [username, setUsername] = useState(null);
+
   const signOut = () => {
     localStorage.removeItem("token");
     setUsername(null);
   };
+
+  if (JSON.parse(localStorage.getItem("token")) && username === null) {
+    const token = JSON.parse(localStorage.getItem("token"));
+    const decoded = jwtDecode(token);
+    setUsername(decoded.user.username);
+  }
 
   return (
     <header className="bg-frutiger rounded-frutiger backdrop-blur-frutiger shadow-frutiger border-frutiger p-frutiger mt-4">

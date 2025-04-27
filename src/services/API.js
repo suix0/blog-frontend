@@ -54,43 +54,25 @@ const API = () => {
     }
   };
 
-  const postLike = async (postId) => {
+  const getAuthorPosts = async (userId) => {
     try {
-      const res = await fetch(`${serverUrl}/api/posts/${postId}/likes`, {
+      const res = await fetch(`${serverUrl}/api/authors/${userId}/posts`, {
         mode: "cors",
-        method: "put",
+        headers: {
+          authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
+        },
       });
-
       if (!res.ok) {
         throw new Error("Error in posting like");
       }
       const data = await res.json();
-      console.log(data.updatedPost);
-      return data.updatedPost;
+      return data;
     } catch (err) {
       console.error(err);
     }
   };
 
-  const postUnlike = async (postId) => {
-    try {
-      const res = await fetch(`${serverUrl}/api/posts/${postId}/likes`, {
-        mode: "cors",
-        method: "delete",
-      });
-
-      if (!res.ok) {
-        throw new Error("Error in posting like");
-      }
-      const data = await res.json();
-      console.log(data.updatedPost);
-      return data.updatedPost;
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
-  return { getPosts, getPost, postComments, postLike, postUnlike };
+  return { getPosts, getPost, postComments, getAuthorPosts };
 };
 
 const server = API();

@@ -18,7 +18,6 @@ const Home = () => {
   const [post, setPost] = useState(undefined);
   const [comments, setComments] = useState(null);
 
-  // Username to display in the UI
   const [username, setUsername] = useState(null);
 
   // Retrieve all posts
@@ -65,11 +64,11 @@ const Home = () => {
 
   return (
     <div className="col-start-2 col-end-3">
-      <Header username={username} setUsername={setUsername}></Header>
+      <Header></Header>
       <main className="flex pt-4 justify-between gap-4">
         {post !== undefined && (
           <div className="flex flex-col w-full">
-            <section className="border-frutiger shadow-frutiger p-frutiger rounded-frutiger backdrop-blur-frutiger w-full h-full relative">
+            <section className="border-frutiger shadow-frutiger p-frutiger rounded-frutiger backdrop-blur-frutiger w-full h-full">
               <h1 className="font-bold text-4xl">{post.title}</h1>
               <div className="flex flex-col gap-1 mt-4">
                 <p>
