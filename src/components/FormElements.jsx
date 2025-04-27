@@ -3,7 +3,16 @@ const Button = ({ onClick, type = "button", children }) => {
     <button
       type={type}
       onClick={onClick}
-      className="bg-frutiger p-1.5 w-full mt-4 rounded-lg shadow-frutiger"
+      style={{
+        background: "rgba(255, 255, 255, 0.27)",
+        borderRadius: "16px",
+        boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
+        backdropFilter: "blur(1.5px)",
+        WebkitBackdropFilter: "blur(1.5px)",
+        border: "1px solid rgba(255, 255, 255, 0.62)",
+        padding: "10px",
+      }}
+      className="cursor-pointer mt-4"
     >
       {children}
     </button>
@@ -28,7 +37,15 @@ const InputField = ({
         onChange={(e) =>
           setUserCredentials({ ...state, [htmlFor]: e.target.value })
         }
-        className="bg-frutiger outline-frutiger rounded-lg p-1.5 shadow-frutiger"
+        style={{
+          background: "rgba(255, 255, 255, 0.27)",
+          borderRadius: "16px",
+          boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
+          backdropFilter: "blur(1.5px)",
+          WebkitBackdropFilter: "blur(1.5px)",
+          border: "1px solid rgba(255, 255, 255, 0.62)",
+          padding: "10px",
+        }}
       />
     </label>
   );

@@ -48,7 +48,16 @@ const Register = () => {
         <p className="text-lg">Sign in</p>
         <form
           action={submitForm}
-          className="w-fit border-frutiger shadow-frutiger bg-frutiger backdrop-blur-frutiger rounded-frutiger p-4 flex flex-col gap-2"
+          className="w-fit p-4 flex flex-col gap-2"
+          style={{
+            background: "rgba(255, 255, 255, 0.27)",
+            borderRadius: "16px",
+            boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
+            backdropFilter: "blur(1.5px)",
+            WebkitBackdropFilter: "blur(1.5px)",
+            border: "1px solid rgba(255, 255, 255, 0.62)",
+            padding: "10px",
+          }}
         >
           <InputField
             value={userCredentials.username}
