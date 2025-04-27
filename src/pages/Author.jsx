@@ -1,5 +1,8 @@
 import Header from "../layouts/Header";
-import { PublishedPosts } from "../features/posts/AuthorPosts";
+import {
+  PublishedPosts,
+  UnpublishedPosts,
+} from "../features/posts/AuthorPosts";
 import { useState, useEffect } from "react";
 import server from "../services/API";
 import { jwtDecode } from "jwt-decode";
@@ -34,6 +37,9 @@ const Author = () => {
         <PublishedPosts
           publishedPosts={authorPosts.publishedPosts}
         ></PublishedPosts>
+        <UnpublishedPosts
+          unpublishedPosts={authorPosts.unpublishedPosts}
+        ></UnpublishedPosts>
       </main>
     </div>
   );
