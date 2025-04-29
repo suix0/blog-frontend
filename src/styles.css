@@ -1,5 +1,14 @@
 @import "tailwindcss";
 
+@theme {
+  --color-frutiger: rgba(255, 255, 255, 0.27);
+  --shadow-frutiger: 0 4px 30px rgba(0, 0, 0, 0.1);
+  --color-glassy: 1px solid rgba(255, 255, 255, 0.62);
+  --radius-frutiger: 16px;
+  --spacing-frutiger: 10px;
+  --blur-frutiger: blur(1.5px);
+}
+
 body {
   height: 100svh;
   background: linear-gradient(135deg, #9be1e7, #a1e7a6);

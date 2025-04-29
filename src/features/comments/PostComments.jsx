@@ -39,32 +39,14 @@ const PostComments = ({ postId, username, comments, setComments }) => {
           name="comment"
           id="comment"
           placeholder="Write a comment"
-          className="resize-none border"
-          style={{
-            background: "rgba(255, 255, 255, 0.27)",
-            borderRadius: "16px",
-            boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
-            backdropFilter: "blur(1.5px)",
-            WebkitBackdropFilter: "blur(1.5px)",
-            border: "1px solid rgba(255, 255, 255, 0.62)",
-            padding: "10px",
-          }}
+          className="resize-none bg-frutiger rounded-frutiger shadow-frutiger border border-white/60 p-frutiger backdrop-blur-frutiger"
           value={comment}
           onChange={(e) => setComment(e.target.value)}
           required
         />
         <button
           type="submit"
-          className="border w-[100px] cursor-pointer"
-          style={{
-            background: "rgba(255, 255, 255, 0.27)",
-            borderRadius: "16px",
-            boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
-            backdropFilter: "blur(1.5px)",
-            WebkitBackdropFilter: "blur(1.5px)",
-            border: "1px solid rgba(255, 255, 255, 0.62)",
-            padding: "10px",
-          }}
+          className="bg-frutiger rounded-frutiger shadow-frutiger border border-white/60 p-frutiger backdrop-blur-frutiger w-[100px] cursor-pointer"
         >
           Post
         </button>
