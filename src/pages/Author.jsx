@@ -17,13 +17,18 @@ const Author = () => {
   const [username, setUsername] = useState(null);
   const [createBlog, setCreateBlog] = useState(false);
   const [blog, setBlog] = useState({ title: "", content: "" });
+  const [error, setUnauthorizedError] = useState(false);
 
   useEffect(() => {
     const fetchAuthorPosts = async () => {
       const token = JSON.parse(localStorage.getItem("token"));
       const decoded = jwtDecode(token);
       const authorPostsData = await server.getAuthorPosts(decoded.user.id);
-      setAuthorPosts(authorPostsData);
+      if (!authorPostsData) {
+        setUnauthorizedError(true);
+      } else {
+        setAuthorPosts(authorPostsData);
+      }
     };
     fetchAuthorPosts();
   }, []);
@@ -59,68 +64,79 @@ const Author = () => {
   return (
     <div className="col-start-2 col-end-3">
       <Header></Header>
-      <main>
-        {!createBlog && <CreatePost setCreateBlog={setCreateBlog}></CreatePost>}
-        {createBlog && (
-          <div className="bg-frutiger rounded-frutiger shadow-frutiger border border-white/60 p-frutiger backdrop-blur-frutiger">
-            <form action={postNewBlog} method="post">
-              <label htmlFor="blogTitle">
-                <input
-                  required
-                  type="text"
-                  id="blogTitle"
-                  placeholder="Title"
-                  name="blogTitle"
-                  className="bg-frutiger rounded-frutiger shadow-frutiger border border-white/60 p-frutiger backdrop-blur-frutiger mb-4 self-start"
-                  value={blog.title}
-                  onChange={(e) => setBlog({ ...blog, title: e.target.value })}
-                />
-              </label>
-              <Editor
-                apiKey={tinymceApi}
-                value={blog}
-                onEditorChange={(newValue, editor) =>
-                  setBlog({ ...blog, content: newValue })
-                }
-                textareaName="blogCreate"
-                id="blogCreate"
-                init={{
-                  content_style: `
+      {error ? (
+        <div className="flex justify-center items-center flex-col mt-64 gap-2">
+          <p className="text-4xl font-bold">Error</p>
+          <p>You are not authorized to view this page.</p>
+        </div>
+      ) : (
+        <main>
+          {!createBlog && (
+            <CreatePost setCreateBlog={setCreateBlog}></CreatePost>
+          )}
+          {createBlog && (
+            <div className="bg-frutiger rounded-frutiger shadow-frutiger border border-white/60 p-frutiger backdrop-blur-frutiger">
+              <form action={postNewBlog} method="post">
+                <label htmlFor="blogTitle">
+                  <input
+                    required
+                    type="text"
+                    id="blogTitle"
+                    placeholder="Title"
+                    name="blogTitle"
+                    className="bg-frutiger rounded-frutiger shadow-frutiger border border-white/60 p-frutiger backdrop-blur-frutiger mb-4 self-start"
+                    value={blog.title}
+                    onChange={(e) =>
+                      setBlog({ ...blog, title: e.target.value })
+                    }
+                  />
+                </label>
+                <Editor
+                  apiKey={tinymceApi}
+                  value={blog}
+                  onEditorChange={(newValue, editor) =>
+                    setBlog({ ...blog, content: newValue })
+                  }
+                  textareaName="blogCreate"
+                  id="blogCreate"
+                  init={{
+                    content_style: `
                 body {
                   background: linear-gradient(135deg, #9be1e7, #a1e7a6);
                 }
               `,
-                  plugins: [
-                    // Core editing features
-                    "anchor",
-                    "autolink",
-                    "charmap",
-                    "codesample",
-                    "emoticons",
-                    "lists",
-                    "searchreplace",
-                    "wordcount",
-                  ],
-                  toolbar:
-                    "undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat",
-                }}
-              />
-              <button
-                type="submit"
-                className="bg-frutiger rounded-frutiger shadow-frutiger border border-white/60 p-frutiger backdrop-blur-frutiger w-[100px] mt-4 cursor-pointer hover:-translate-y-1 transition-all"
-              >
-                Post
-              </button>
-            </form>
-          </div>
-        )}
-        <PublishedPosts
-          publishedPosts={authorPosts.publishedPosts}
-        ></PublishedPosts>
-        <UnpublishedPosts
-          unpublishedPosts={authorPosts.unpublishedPosts}
-        ></UnpublishedPosts>
-      </main>
+                    plugins: [
+                      // Core editing features
+                      "anchor",
+                      "autolink",
+                      "charmap",
+                      "codesample",
+                      "emoticons",
+                      "lists",
+                      "searchreplace",
+                      "wordcount",
+                    ],
+                    toolbar:
+                      "undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat",
+                  }}
+                />
+                <button
+                  type="submit"
+                  className="bg-frutiger rounded-frutiger shadow-frutiger border border-white/60 p-frutiger backdrop-blur-frutiger w-[100px] mt-4 cursor-pointer hover:-translate-y-1 transition-all"
+                >
+                  Post
+                </button>
+              </form>
+            </div>
+          )}
+          <PublishedPosts
+            publishedPosts={authorPosts && authorPosts.publishedPosts}
+          ></PublishedPosts>
+          <UnpublishedPosts
+            unpublishedPosts={authorPosts && authorPosts.unpublishedPosts}
+          ></UnpublishedPosts>
+        </main>
+      )}
     </div>
   );
 };

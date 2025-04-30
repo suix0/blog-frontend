@@ -1,14 +1,16 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import { useState } from "react";
 
 const Header = () => {
   // Username to display in the UI
   const [username, setUsername] = useState(null);
+  const navigate = useNavigate();
 
   const signOut = () => {
     localStorage.removeItem("token");
     setUsername(null);
+    navigate("/");
   };
 
   if (JSON.parse(localStorage.getItem("token")) && username === null) {

@@ -63,7 +63,7 @@ const API = () => {
         },
       });
       if (!res.ok) {
-        throw new Error("Error in getting author posts.");
+        return false;
       }
       const data = await res.json();
       return data;
