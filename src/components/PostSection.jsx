@@ -1,3 +1,5 @@
+import parse from "html-react-parser";
+
 const PostSection = ({ post }) => {
   return (
     <section className="w-full h-full bg-frutiger rounded-frutiger shadow-frutiger border border-white/60 p-frutiger backdrop-blur-frutiger">
@@ -5,7 +7,7 @@ const PostSection = ({ post }) => {
       <p className="text-xs">
         Date uploaded: <span>{post.createdAt}</span>
       </p>
-      <p>{post.content}</p>
+      {parse(post.content)}
     </section>
   );
 };

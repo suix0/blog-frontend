@@ -6,6 +6,7 @@ import { formatDates, formatDate } from "../utils/formatDate";
 import Comment from "../features/comments/Comment";
 import PostComments from "../features/comments/PostComments";
 import { jwtDecode } from "jwt-decode";
+import parse from "html-react-parser";
 
 const PostContext = createContext(null);
 
@@ -77,7 +78,7 @@ const Home = () => {
                 </p>
                 <p className="text-neutral-600 text-xs">{post.createdAt}</p>
               </div>
-              <p className="mt-4">{post.content}</p>
+              {parse(post.content)}
             </section>
           </div>
         )}

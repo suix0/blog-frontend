@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { PostContext } from "../pages/Home";
+import parse from "html-react-parser";
 
 const PostCard = ({ post }) => {
   const { setPostId } = useContext(PostContext);
@@ -14,7 +15,7 @@ const PostCard = ({ post }) => {
           blog by: <span className="font-bold">{post.User.username}</span>
         </p>
         <p className="text-neutral-600 text-xs">{post.createdAt}</p>
-        <p>{post.content}</p>
+        {parse(post.content)}
       </div>
     </div>
   );
