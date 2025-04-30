@@ -17,17 +17,18 @@ const Author = () => {
   const [username, setUsername] = useState(null);
   const [createBlog, setCreateBlog] = useState(false);
   const [blog, setBlog] = useState({ title: "", content: "" });
-  const [error, setUnauthorizedError] = useState(false);
+  const [error, setUnauthorizedError] = useState(true);
 
   useEffect(() => {
     const fetchAuthorPosts = async () => {
       const token = JSON.parse(localStorage.getItem("token"));
       const decoded = jwtDecode(token);
       const authorPostsData = await server.getAuthorPosts(decoded.user.id);
-      if (!authorPostsData) {
-        setUnauthorizedError(true);
-      } else {
+      if (authorPostsData) {
         setAuthorPosts(authorPostsData);
+        setUnauthorizedError(false);
+      } else {
+        setUnauthorizedError(true);
       }
     };
     fetchAuthorPosts();
