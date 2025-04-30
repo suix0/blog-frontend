@@ -6,15 +6,19 @@ const RecentPosts = () => {
   const { posts } = useContext(PostContext);
   return (
     <aside
-      className="flex flex-col gap-4 items-center bg-frutiger
+      className=" items-center bg-frutiger
         rounded-frutiger
         shadow-frutiger
         border
       border-white/60
-        p-frutiger
-        backdrop-blur-frutiger"
+        backdrop-blur-frutiger
+        h-[500px]
+        w-[350px]
+        overflow-y-scroll
+        p-5
+        "
     >
-      <p>recent posts</p>
+      <p className="text-center mb-4">recent posts</p>
       {posts.map((post) => {
         return <PostCard post={post} key={crypto.randomUUID()}></PostCard>;
       })}
