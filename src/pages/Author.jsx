@@ -16,6 +16,7 @@ const Author = () => {
   });
   const [username, setUsername] = useState(null);
   const [createBlog, setCreateBlog] = useState(false);
+  const [blog, setBlog] = useState({ title: "", content: "" });
 
   useEffect(() => {
     const fetchAuthorPosts = async () => {
@@ -33,6 +34,26 @@ const Author = () => {
     setUsername(decoded.user.username);
   }
 
+  const postNewBlog = async () => {
+    const token = JSON.parse(localStorage.getItem("token"));
+    const decoded = jwtDecode(token);
+    const post = await server.postBlog(blog, decoded.userId);
+
+    if (post.published) {
+      setAuthorPosts({
+        ...authorPosts,
+        publishedPosts: [...authorPosts.publishedPosts, post],
+      });
+    } else {
+      setAuthorPosts({
+        ...authorPosts,
+        unpublishedPosts: [...authorPosts.unpublishedPosts, post],
+      });
+    }
+    setBlog({ title: "", content: "" });
+    setCreateBlog(false);
+  };
+
   const tinymceApi = import.meta.env.VITE_TINYMCE_API;
 
   return (
@@ -42,30 +63,55 @@ const Author = () => {
         {!createBlog && <CreatePost setCreateBlog={setCreateBlog}></CreatePost>}
         {createBlog && (
           <div className="bg-frutiger rounded-frutiger shadow-frutiger border border-white/60 p-frutiger backdrop-blur-frutiger">
-            <Editor
-              apiKey={tinymceApi}
-              init={{
-                content_style: `
+            <form action={postNewBlog} method="post">
+              <label htmlFor="blogTitle">
+                <input
+                  required
+                  type="text"
+                  id="blogTitle"
+                  placeholder="Title"
+                  name="blogTitle"
+                  className="bg-frutiger rounded-frutiger shadow-frutiger border border-white/60 p-frutiger backdrop-blur-frutiger mb-4 self-start"
+                  value={blog.title}
+                  onChange={(e) => setBlog({ ...blog, title: e.target.value })}
+                />
+              </label>
+              <Editor
+                apiKey={tinymceApi}
+                value={blog}
+                onEditorChange={(newValue, editor) =>
+                  setBlog({ ...blog, content: newValue })
+                }
+                textareaName="blogCreate"
+                id="blogCreate"
+                init={{
+                  content_style: `
                 body {
                   background: linear-gradient(135deg, #9be1e7, #a1e7a6);
                 }
               `,
-                plugins: [
-                  // Core editing features
-                  "anchor",
-                  "autolink",
-                  "charmap",
-                  "codesample",
-                  "emoticons",
-                  "lists",
-                  "searchreplace",
-                  "wordcount",
-                ],
-                toolbar:
-                  "undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat",
-              }}
-              initialValue="Welcome to TinyMCE!"
-            />
+                  plugins: [
+                    // Core editing features
+                    "anchor",
+                    "autolink",
+                    "charmap",
+                    "codesample",
+                    "emoticons",
+                    "lists",
+                    "searchreplace",
+                    "wordcount",
+                  ],
+                  toolbar:
+                    "undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat",
+                }}
+              />
+              <button
+                type="submit"
+                className="bg-frutiger rounded-frutiger shadow-frutiger border border-white/60 p-frutiger backdrop-blur-frutiger w-[100px] mt-4 cursor-pointer hover:-translate-y-1 transition-all"
+              >
+                Post
+              </button>
+            </form>
           </div>
         )}
         <PublishedPosts

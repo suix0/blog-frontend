@@ -7,7 +7,7 @@ const PublishedPosts = ({ publishedPosts }) => {
   return (
     <div className="mt-4">
       <p className="ml-4 text-lg ">Published posts</p>
-      <div className=" w-full h-full bg-frutiger rounded-frutiger shadow-frutiger border border-white/60 p-frutiger backdrop-blur-frutiger">
+      <div className="w-full h-full bg-frutiger rounded-frutiger shadow-frutiger border border-white/60 p-frutiger backdrop-blur-frutiger flex flex-col gap-4">
         {formattedPublishedPosts &&
           formattedPublishedPosts.map((post) => {
             return (
@@ -25,7 +25,7 @@ const UnpublishedPosts = ({ unpublishedPosts }) => {
   return (
     <div className="mt-4">
       <p className="ml-4 text-lg ">Unpublished posts</p>
-      <div className="w-full h-full bg-frutiger rounded-frutiger shadow-frutiger border border-white/60 p-frutiger backdrop-blur-frutiger">
+      <div className="w-full h-full bg-frutiger rounded-frutiger shadow-frutiger border border-white/60 p-frutiger backdrop-blur-frutiger flex flex-col gap-4">
         {formattedUnpublishedPosts &&
           formattedUnpublishedPosts.map((post) => {
             return (

@@ -63,7 +63,7 @@ const API = () => {
         },
       });
       if (!res.ok) {
-        throw new Error("Error in posting like");
+        throw new Error("Error in getting author posts.");
       }
       const data = await res.json();
       return data;
@@ -72,7 +72,28 @@ const API = () => {
     }
   };
 
-  return { getPosts, getPost, postComments, getAuthorPosts };
+  const postBlog = async (blog, userId) => {
+    try {
+      const res = await fetch(`${serverUrl}/api/authors/${userId}/posts`, {
+        method: "post",
+        mode: "cors",
+        headers: {
+          authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(blog),
+      });
+      if (!res.ok) {
+        throw new Error("Error in uploading post");
+      }
+      const data = await res.json();
+      return data.newPost;
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  return { getPosts, getPost, postComments, getAuthorPosts, postBlog };
 };
 
 const server = API();
