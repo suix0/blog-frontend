@@ -79,7 +79,12 @@ const Author = () => {
       ) : (
         <main>
           {editPost.edit ? (
-            <EditPost post={editPost.post}></EditPost>
+            <EditPost
+              post={editPost.post}
+              authorPosts={authorPosts}
+              setAuthorPosts={setAuthorPosts}
+              setEditPost={setEditPost}
+            ></EditPost>
           ) : !createBlog ? (
             <>
               <CreatePost setCreateBlog={setCreateBlog}></CreatePost>

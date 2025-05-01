@@ -93,7 +93,35 @@ const API = () => {
     }
   };
 
-  return { getPosts, getPost, postComments, getAuthorPosts, postBlog };
+  const updatePost = async (postId, title, content, userId) => {
+    try {
+      const res = await fetch(`${serverUrl}/api/authors/${userId}/posts`, {
+        method: "put",
+        mode: "cors",
+        headers: {
+          authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ postId, title, content }),
+      });
+      if (!res.ok) {
+        throw new Error("Error in uploading post");
+      }
+      const data = await res.json();
+      return data.updatedPost;
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  return {
+    getPosts,
+    getPost,
+    postComments,
+    getAuthorPosts,
+    postBlog,
+    updatePost,
+  };
 };
 
 const server = API();

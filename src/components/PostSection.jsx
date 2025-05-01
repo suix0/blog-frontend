@@ -1,6 +1,6 @@
 import parse from "html-react-parser";
 
-const PostSection = ({ post, setEditPost, editPost }) => {
+const PostSection = ({ post, setEditPost }) => {
   return (
     <section className="w-full h-full bg-frutiger rounded-frutiger shadow-frutiger border border-white/60 p-frutiger backdrop-blur-frutiger relative">
       <h1 className="font-bold text-xl">{post.title}</h1>

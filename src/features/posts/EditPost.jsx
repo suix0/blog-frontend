@@ -1,14 +1,55 @@
 import { useState } from "react";
 import { Editor } from "@tinymce/tinymce-react";
+import { useNavigate } from "react-router-dom";
+import server from "../../services/API";
+import { jwtDecode } from "jwt-decode";
 
-const EditPost = ({ post }) => {
+const EditPost = ({ post, authorPosts, setAuthorPosts, setEditPost }) => {
   const [title, setTitle] = useState(post.title);
-  const [editNewContent, setEditNewContent] = useState("");
-  const [initialValue, setInitialValue] = useState(post.content);
+  const [editNewContent, setEditNewContent] = useState(post.content);
+  const navigate = useNavigate();
 
   const tinymceApi = import.meta.env.VITE_TINYMCE_API;
 
-  const postNewBlog = () => {};
+  const postNewBlog = async () => {
+    const user = jwtDecode(JSON.parse(localStorage.getItem("token")));
+    const newUpdatedPost = await server.updatePost(
+      post.id,
+      title,
+      editNewContent,
+      user.id
+    );
+    console.log(authorPosts);
+    if (newUpdatedPost.published) {
+      const newAuthorPublishedPosts = authorPosts.publishedPosts.map((post) => {
+        if (post.id === newUpdatedPost.id) {
+          return newUpdatedPost;
+        } else {
+          return post;
+        }
+      });
+      setAuthorPosts({
+        unpublishedPosts: authorPosts.unpublishedPosts,
+        publishedPosts: newAuthorPublishedPosts,
+      });
+      setEditPost({ post: {}, edit: false });
+    } else {
+      const newAuthorUnpublishedPosts = authorPosts.unpublishedPosts.map(
+        (post) => {
+          if (post.id === newUpdatedPost.id) {
+            return newUpdatedPost;
+          } else {
+            return post;
+          }
+        }
+      );
+      setAuthorPosts({
+        publishedPosts: authorPosts.publishedPosts,
+        unpublishedPosts: newAuthorUnpublishedPosts,
+      });
+      setEditPost({ post: {}, edit: false });
+    }
+  };
 
   return (
     <form action={postNewBlog} method="post">
@@ -26,7 +67,7 @@ const EditPost = ({ post }) => {
       </label>
       <Editor
         apiKey={tinymceApi}
-        initialValue={initialValue}
+        initialValue={post.content}
         value={editNewContent}
         onEditorChange={(newValue, editor) => setEditNewContent(newValue)}
         textareaName="blogCreate"
@@ -52,12 +93,22 @@ const EditPost = ({ post }) => {
             "undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat",
         }}
       />
-      <button
-        type="submit"
-        className="w-[150px] bg-frutiger rounded-frutiger shadow-frutiger border border-white/60 p-frutiger backdrop-blur-frutiger w-[100px] mt-4 cursor-pointer hover:-translate-y-1 transition-all"
-      >
-        Confirm changes
-      </button>
+      <div className="flex gap-4">
+        <button
+          className="w-[150px] bg-frutiger rounded-frutiger shadow-frutiger border border-white/60 p-frutiger backdrop-blur-frutiger mt-4 cursor-pointer hover:-translate-y-1 transition-all"
+          onClick={() => {
+            navigate("/");
+          }}
+        >
+          Return
+        </button>
+        <button
+          type="submit"
+          className="w-[150px] bg-frutiger rounded-frutiger shadow-frutiger border border-white/60 p-frutiger backdrop-blur-frutiger mt-4 cursor-pointer hover:-translate-y-1 transition-all"
+        >
+          Confirm changes
+        </button>
+      </div>
     </form>
   );
 };
