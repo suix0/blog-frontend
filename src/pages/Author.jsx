@@ -74,6 +74,17 @@ const Author = () => {
     setCreateBlog(false);
   };
 
+  const deleteBlog = async () => {
+    const token = JSON.parse(localStorage.getItem("token"));
+    const decoded = jwtDecode(token);
+    const newAuthorPosts = await server.deleteBlog(
+      decoded.user.id,
+      deletePost.post
+    );
+    setAuthorPosts(newAuthorPosts);
+    setDeletePost({ delete: false, post: {} });
+  };
+
   const tinymceApi = import.meta.env.VITE_TINYMCE_API;
 
   return (
@@ -110,6 +121,7 @@ const Author = () => {
                 <ConfirmDelete
                   post={deletePost.post}
                   setDeletePost={setDeletePost}
+                  deleteBlog={deleteBlog}
                 ></ConfirmDelete>
               )}
             </>

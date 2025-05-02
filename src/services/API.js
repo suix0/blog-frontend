@@ -35,7 +35,7 @@ const API = () => {
     try {
       const res = await fetch(`${serverUrl}/api/posts/${postId}/comments`, {
         mode: "cors",
-        method: "post",
+        method: "POST",
         headers: {
           authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
           "Content-Type": "application/json",
@@ -75,7 +75,7 @@ const API = () => {
   const postBlog = async (blog, userId) => {
     try {
       const res = await fetch(`${serverUrl}/api/authors/${userId}/posts`, {
-        method: "post",
+        method: "POST",
         mode: "cors",
         headers: {
           authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
@@ -96,7 +96,7 @@ const API = () => {
   const updatePost = async (postId, title, content, userId) => {
     try {
       const res = await fetch(`${serverUrl}/api/authors/${userId}/posts`, {
-        method: "put",
+        method: "PUT",
         mode: "cors",
         headers: {
           authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
@@ -114,6 +114,27 @@ const API = () => {
     }
   };
 
+  const deleteBlog = async (userId, post) => {
+    try {
+      const res = await fetch(`${serverUrl}/api/authors/${userId}/posts`, {
+        method: "DELETE",
+        mode: "cors",
+        headers: {
+          authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(post),
+      });
+      if (!res.ok) {
+        throw new Error("Error in deleting post");
+      }
+      const data = await res.json();
+      return data;
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return {
     getPosts,
     getPost,
@@ -121,6 +142,7 @@ const API = () => {
     getAuthorPosts,
     postBlog,
     updatePost,
+    deleteBlog,
   };
 };
 

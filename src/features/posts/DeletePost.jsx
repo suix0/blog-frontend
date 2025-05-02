@@ -1,4 +1,4 @@
-const ConfirmDelete = ({ post, setDeletePost }) => {
+const ConfirmDelete = ({ post, setDeletePost, deleteBlog }) => {
   return (
     <div className="bg-frutiger rounded-frutiger shadow-frutiger border border-white/60 p-frutiger backdrop-blur-frutiger absolute inset-0 w-[300px] h-fit mt-44 mx-auto text-center flex flex-col gap-4">
       <p className="text-xl">
@@ -12,7 +12,10 @@ const ConfirmDelete = ({ post, setDeletePost }) => {
         >
           Cancel
         </button>
-        <button className="bg-red-300 rounded-frutiger shadow-frutiger border border-white/60 p-frutiger backdrop-blur-frutiger cursor-pointer">
+        <button
+          className="bg-red-300 rounded-frutiger shadow-frutiger border border-white/60 p-frutiger backdrop-blur-frutiger cursor-pointer"
+          onClick={deleteBlog}
+        >
           Delete
         </button>
       </div>
