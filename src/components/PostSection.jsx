@@ -1,6 +1,6 @@
 import parse from "html-react-parser";
 
-const PostSection = ({ post, setEditPost }) => {
+const PostSection = ({ post, setEditPost, setDeletePost }) => {
   return (
     <section className="w-full h-full bg-frutiger rounded-frutiger shadow-frutiger border border-white/60 p-frutiger backdrop-blur-frutiger relative">
       <h1 className="font-bold text-xl">{post.title}</h1>
@@ -15,7 +15,10 @@ const PostSection = ({ post, setEditPost }) => {
         >
           Edit
         </button>
-        <button className="bg-frutiger rounded-frutiger shadow-frutiger border border-white/60 p-frutiger backdrop-blur-frutiger cursor-pointer">
+        <button
+          className="bg-frutiger rounded-frutiger shadow-frutiger border border-white/60 p-frutiger backdrop-blur-frutiger cursor-pointer"
+          onClick={() => setDeletePost({ delete: true, post: post })}
+        >
           Delete
         </button>
         <button className="bg-frutiger rounded-frutiger shadow-frutiger border border-white/60 p-frutiger backdrop-blur-frutiger cursor-pointer">

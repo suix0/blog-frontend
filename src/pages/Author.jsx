@@ -9,6 +9,7 @@ import server from "../services/API";
 import { jwtDecode } from "jwt-decode";
 import { Editor } from "@tinymce/tinymce-react";
 import EditPost from "../features/posts/EditPost";
+import ConfirmDelete from "../features/posts/DeletePost";
 
 const Author = () => {
   const [authorPosts, setAuthorPosts] = useState({
@@ -18,10 +19,15 @@ const Author = () => {
   const [username, setUsername] = useState(null);
   const [createBlog, setCreateBlog] = useState(false);
   const [blog, setBlog] = useState({ title: "", content: "" });
-  const [error, setUnauthorizedError] = useState(true);
+  const [error, setUnauthorizedError] = useState(null);
 
   const [editPost, setEditPost] = useState({
     edit: false,
+    post: {},
+  });
+
+  const [deletePost, setDeletePost] = useState({
+    delete: false,
     post: {},
   });
 
@@ -32,9 +38,6 @@ const Author = () => {
       const authorPostsData = await server.getAuthorPosts(decoded.user.id);
       if (authorPostsData) {
         setAuthorPosts(authorPostsData);
-        setUnauthorizedError(false);
-      } else {
-        setUnauthorizedError(true);
       }
     };
     fetchAuthorPosts();
@@ -44,6 +47,11 @@ const Author = () => {
     const token = JSON.parse(localStorage.getItem("token"));
     const decoded = jwtDecode(token);
     setUsername(decoded.user.username);
+    if (decoded.user.role === "USER") {
+      setUnauthorizedError(true);
+    } else {
+      setUnauthorizedError(false);
+    }
   }
 
   const postNewBlog = async () => {
@@ -77,7 +85,7 @@ const Author = () => {
           <p>You are not authorized to view this page.</p>
         </div>
       ) : (
-        <main>
+        <main className="relative">
           {editPost.edit ? (
             <EditPost
               post={editPost.post}
@@ -91,11 +99,19 @@ const Author = () => {
               <PublishedPosts
                 publishedPosts={authorPosts && authorPosts.publishedPosts}
                 setEditPost={setEditPost}
+                setDeletePost={setDeletePost}
               ></PublishedPosts>
               <UnpublishedPosts
                 unpublishedPosts={authorPosts && authorPosts.unpublishedPosts}
                 setEditPost={setEditPost}
+                setDeletePost={setDeletePost}
               ></UnpublishedPosts>
+              {deletePost.delete && (
+                <ConfirmDelete
+                  post={deletePost.post}
+                  setDeletePost={setDeletePost}
+                ></ConfirmDelete>
+              )}
             </>
           ) : (
             createBlog && (
@@ -156,12 +172,12 @@ const Author = () => {
                 <PublishedPosts
                   publishedPosts={authorPosts && authorPosts.publishedPosts}
                   setEditPost={setEditPost}
-                  editPost={editPost}
+                  setDeletePost={setDeletePost}
                 ></PublishedPosts>
                 <UnpublishedPosts
                   unpublishedPosts={authorPosts && authorPosts.unpublishedPosts}
                   setEditPost={setEditPost}
-                  editPost={editPost}
+                  setDeletePost={setDeletePost}
                 ></UnpublishedPosts>
               </>
             )

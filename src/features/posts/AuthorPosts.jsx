@@ -1,7 +1,7 @@
 import PostSection from "../../components/PostSection";
 import { formatDates } from "../../utils/formatDate";
 
-const PublishedPosts = ({ publishedPosts, setEditPost, editPost }) => {
+const PublishedPosts = ({ publishedPosts, setEditPost, setDeletePost }) => {
   if (publishedPosts) {
     const formattedPublishedPosts = formatDates(publishedPosts);
     return (
@@ -15,7 +15,7 @@ const PublishedPosts = ({ publishedPosts, setEditPost, editPost }) => {
                   post={post}
                   key={crypto.randomUUID()}
                   setEditPost={setEditPost}
-                  editPost={editPost}
+                  setDeletePost={setDeletePost}
                 ></PostSection>
               );
             })}
@@ -25,7 +25,7 @@ const PublishedPosts = ({ publishedPosts, setEditPost, editPost }) => {
   }
 };
 
-const UnpublishedPosts = ({ unpublishedPosts, setEditPost, editPost }) => {
+const UnpublishedPosts = ({ unpublishedPosts, setEditPost, setDeletePost }) => {
   if (unpublishedPosts) {
     const formattedUnpublishedPosts = formatDates(unpublishedPosts);
     return (
@@ -39,7 +39,7 @@ const UnpublishedPosts = ({ unpublishedPosts, setEditPost, editPost }) => {
                   post={post}
                   key={crypto.randomUUID()}
                   setEditPost={setEditPost}
-                  editPost={editPost}
+                  setDeletePost={setDeletePost}
                 ></PostSection>
               );
             })}
