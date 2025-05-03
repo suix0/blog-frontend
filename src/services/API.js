@@ -135,6 +135,34 @@ const API = () => {
     }
   };
 
+  const updatePublishStatus = async (userId, post) => {
+    try {
+      const res = await fetch(
+        `${serverUrl}/api/authors/${userId}/posts?${
+          post.published ? "publish=true" : "unpublish=true"
+        }`,
+        {
+          method: "PUT",
+          mode: "cors",
+          headers: {
+            authorization: `Bearer ${JSON.parse(
+              localStorage.getItem("token")
+            )}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(post),
+        }
+      );
+      if (!res.ok) {
+        throw new Error("Error in updating post publish status");
+      }
+      const data = await res.json();
+      return data;
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return {
     getPosts,
     getPost,
@@ -143,6 +171,7 @@ const API = () => {
     postBlog,
     updatePost,
     deleteBlog,
+    updatePublishStatus,
   };
 };
 

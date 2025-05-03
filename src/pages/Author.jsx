@@ -34,10 +34,14 @@ const Author = () => {
   useEffect(() => {
     const fetchAuthorPosts = async () => {
       const token = JSON.parse(localStorage.getItem("token"));
-      const decoded = jwtDecode(token);
-      const authorPostsData = await server.getAuthorPosts(decoded.user.id);
-      if (authorPostsData) {
-        setAuthorPosts(authorPostsData);
+      if (!token) {
+        setUnauthorizedError(true);
+      } else {
+        const decoded = jwtDecode(token);
+        const authorPostsData = await server.getAuthorPosts(decoded.user.id);
+        if (authorPostsData) {
+          setAuthorPosts(authorPostsData);
+        }
       }
     };
     fetchAuthorPosts();
@@ -85,6 +89,16 @@ const Author = () => {
     setDeletePost({ delete: false, post: {} });
   };
 
+  const updatePublishStatus = async (post) => {
+    const token = JSON.parse(localStorage.getItem("token"));
+    const decoded = jwtDecode(token);
+    const newAuthorPosts = await server.updatePublishStatus(
+      decoded.user.id,
+      post
+    );
+    setAuthorPosts(newAuthorPosts);
+  };
+
   const tinymceApi = import.meta.env.VITE_TINYMCE_API;
 
   return (
@@ -111,11 +125,13 @@ const Author = () => {
                 publishedPosts={authorPosts && authorPosts.publishedPosts}
                 setEditPost={setEditPost}
                 setDeletePost={setDeletePost}
+                updatePublishStatus={updatePublishStatus}
               ></PublishedPosts>
               <UnpublishedPosts
                 unpublishedPosts={authorPosts && authorPosts.unpublishedPosts}
                 setEditPost={setEditPost}
                 setDeletePost={setDeletePost}
+                updatePublishStatus={updatePublishStatus}
               ></UnpublishedPosts>
               {deletePost.delete && (
                 <ConfirmDelete
@@ -185,11 +201,13 @@ const Author = () => {
                   publishedPosts={authorPosts && authorPosts.publishedPosts}
                   setEditPost={setEditPost}
                   setDeletePost={setDeletePost}
+                  updatePublishStatus={updatePublishStatus}
                 ></PublishedPosts>
                 <UnpublishedPosts
                   unpublishedPosts={authorPosts && authorPosts.unpublishedPosts}
                   setEditPost={setEditPost}
                   setDeletePost={setDeletePost}
+                  updatePublishStatus={updatePublishStatus}
                 ></UnpublishedPosts>
               </>
             )
