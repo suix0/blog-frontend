@@ -105,7 +105,7 @@ const Author = () => {
     <div className="h-fit grid 2xl:grid-cols-[1fr_1200px_1fr] md:grid-cols-[1fr_800px_1fr] xs:grid-rows-[80px_1fr] mx-8">
       <Header></Header>
       {error ? (
-        <div className="flex justify-center items-center flex-col mb-44 gap-2 md:col-start-2 md:col-end-3">
+        <div className="flex mt-32 items-center flex-col gap-2 md:col-start-2 md:col-end-3 h-[100svh]">
           <p className="text-4xl font-bold">Error</p>
           <p>You are not authorized to view this page.</p>
         </div>

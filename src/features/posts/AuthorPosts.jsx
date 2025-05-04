@@ -7,7 +7,7 @@ const PublishedPosts = ({
   setDeletePost,
   updatePublishStatus,
 }) => {
-  if (publishedPosts) {
+  if (publishedPosts.length > 0) {
     const formattedPublishedPosts = formatDates(publishedPosts);
     return (
       <div className="mt-4">
@@ -37,7 +37,7 @@ const UnpublishedPosts = ({
   setDeletePost,
   updatePublishStatus,
 }) => {
-  if (unpublishedPosts) {
+  if (unpublishedPosts.length > 0) {
     const formattedUnpublishedPosts = formatDates(unpublishedPosts);
     return (
       <div className="mt-4">
