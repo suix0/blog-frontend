@@ -1,5 +1,5 @@
 const API = () => {
-  const serverUrl = "http://localhost:5000";
+  const serverUrl = "https://blog-backend-production-0049.up.railway.app";
 
   const getPosts = async () => {
     try {

@@ -14,7 +14,7 @@ const Register = () => {
   const navigate = useNavigate();
 
   const submitForm = async () => {
-    const url = "http://localhost:5000/api/users";
+    const url = "http://blog-backend-production-0049.up.railway.app/api/users";
     try {
       const response = await fetch(url, {
         method: "POST",

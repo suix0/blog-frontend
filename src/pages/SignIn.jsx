@@ -13,7 +13,8 @@ const SignIn = () => {
   const navigate = useNavigate();
 
   const submitForm = async () => {
-    const url = "http://localhost:5000/api/users/sessions";
+    const url =
+      "http://blog-backend-production-0049.up.railway.app/api/users/sessions";
     try {
       const response = await fetch(url, {
         method: "POST",
