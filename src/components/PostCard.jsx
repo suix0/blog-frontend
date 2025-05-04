@@ -5,7 +5,7 @@ import parse from "html-react-parser";
 const PostCard = ({ post }) => {
   const { setPostId } = useContext(PostContext);
   return (
-    <div className="bg-frutiger rounded-frutiger shadow-frutiger border border-white/60 p-frutiger backdrop-blur-frutiger h-[150px] w-full overflow-hidden mb-4">
+    <div className="bg-frutiger rounded-frutiger shadow-frutiger border border-white/60 p-frutiger backdrop-blur-frutiger md:h-[150px] md:w-full overflow-hidden mb-4">
       <div
         className="flex flex-col hover:underline cursor-pointer"
         onClick={() => setPostId(post.id)}

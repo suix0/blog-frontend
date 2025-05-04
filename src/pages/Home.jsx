@@ -1,4 +1,4 @@
-import { useEffect, useState, createContext } from "react";
+import { useEffect, useState, createContext, Fragment } from "react";
 import Header from "../layouts/Header";
 import RecentPosts from "../features/posts/RecentPosts";
 import server from "../services/API";
@@ -64,9 +64,9 @@ const Home = () => {
   }
 
   return (
-    <div className="col-start-2 col-end-3">
+    <div className="h-fit grid 2xl:grid-cols-[1fr_1200px_1fr] md:grid-cols-[1fr_800px_1fr] xs:grid-rows-[80px_1fr] mx-8">
       <Header></Header>
-      <main className="flex pt-4 justify-between gap-4">
+      <main className="pt-4  md:col-start-2 md:col-end-3 xs:h-fit xs:row-start-2">
         {post !== undefined && (
           <div className="flex flex-col w-full">
             <section className=" w-full h-full flex flex-col gap-4 bg-frutiger rounded-frutiger shadow-frutiger border border-white/60 p-frutiger backdrop-blur-frutiger">
@@ -80,29 +80,32 @@ const Home = () => {
               </div>
               {parse(post.content)}
             </section>
+            <section className="w-[80%] mt-4 ml-2 md:col-start-2 md:col-end-3">
+              <h1 className="text-lg font-bold">
+                comments ({comments !== null && comments.length})
+              </h1>
+              {comments !== null &&
+                comments.map((comment) => {
+                  return (
+                    <Comment
+                      comment={comment}
+                      key={crypto.randomUUID()}
+                    ></Comment>
+                  );
+                })}
+              <PostComments
+                postId={post && post.id}
+                username={username}
+                comments={comments}
+                setComments={setComments}
+              ></PostComments>
+            </section>
           </div>
         )}
         <PostContext.Provider value={{ posts, setPostId }}>
           <RecentPosts></RecentPosts>
         </PostContext.Provider>
       </main>
-      <section className="w-[80%] mt-4 ml-2">
-        <h1 className="text-lg font-bold">
-          comments ({comments !== null && comments.length})
-        </h1>
-        {comments !== null &&
-          comments.map((comment) => {
-            return (
-              <Comment comment={comment} key={crypto.randomUUID()}></Comment>
-            );
-          })}
-        <PostComments
-          postId={post && post.id}
-          username={username}
-          comments={comments}
-          setComments={setComments}
-        ></PostComments>
-      </section>
     </div>
   );
 };

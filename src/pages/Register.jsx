@@ -8,6 +8,7 @@ const Register = () => {
     username: "",
     password: "",
     confirmPassword: "",
+    role: "",
   });
   const [errors, setErrors] = useState(null);
   const navigate = useNavigate();
@@ -34,7 +35,12 @@ const Register = () => {
       // Remove errors if there exists after successful authentication
       // Then save token to local storage
       setErrors(null);
-      setUserCredentials({ username: "", password: "", confirmPassword: "" });
+      setUserCredentials({
+        username: "",
+        password: "",
+        confirmPassword: "",
+        role: "",
+      });
       navigate("/signin");
     } catch (err) {
       console.error(err);
@@ -72,6 +78,7 @@ const Register = () => {
             setUserCredentials={setUserCredentials}
             state={userCredentials}
             htmlFor="password"
+            type="password"
           >
             Password
           </InputField>
@@ -80,9 +87,37 @@ const Register = () => {
             setUserCredentials={setUserCredentials}
             state={userCredentials}
             htmlFor="confirmPassword"
+            type="password"
           >
             Confirm Password
           </InputField>
+          <p>Wanna be an admin?</p>
+          <div className="flex gap-4">
+            <input
+              type="radio"
+              name="role"
+              id="true"
+              value="true"
+              required
+              onChange={() =>
+                setUserCredentials({ ...userCredentials, role: true })
+              }
+            />
+            <label htmlFor="yes">Yes</label>
+          </div>
+          <div className="flex gap-4">
+            <input
+              type="radio"
+              name="role"
+              id="false"
+              value="false"
+              required
+              onChange={() =>
+                setUserCredentials({ ...userCredentials, role: false })
+              }
+            />
+            <label htmlFor="no">No</label>
+          </div>
           <Button type="submit">Submit</Button>
         </form>
         {errors !== null && (

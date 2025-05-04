@@ -32,7 +32,7 @@ const PostComments = ({ postId, username, comments, setComments }) => {
       <form
         action={handleSubmit}
         method="POST"
-        className="flex w-fit gap-2 items-end pb-4"
+        className="flex xs:flex-col md:flex-row xs:items-start w-fit gap-2 items-end pb-4"
       >
         <textarea
           type="text"

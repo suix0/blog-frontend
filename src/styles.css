@@ -7,6 +7,11 @@
   --radius-frutiger: 16px;
   --spacing-frutiger: 10px;
   --blur-frutiger: blur(1.5px);
+  --breakpoint-2xl: 1780px;
+  --breakpoint-xl: 1480px;
+  --breakpoint-md: 880px;
+  --breakpoint-s: 500px;
+  --breakpoint-xs: 320px;
 }
 
 body {
@@ -64,9 +69,24 @@ body {
   background-color: rgba(129, 184, 110, 0.4);
 }
 
-#root {
-  display: grid;
-  grid-template-columns: 1fr 1200px 1fr;
-
-  height: 100%;
+body {
+  height: fit-content;
 }
+
+#root {
+  height: fit-content;
+}
+
+/* @media (width < 1217px) {
+  #root {
+    grid-template-columns: 1fr 700px 1fr;
+  }
+}
+
+@media (width < 717px) {
+  #root {
+    grid-template-columns: unset;
+    grid-template-rows: 30px 1fr 1fr 1fr;
+    margin: 0 1rem;
+  }
+} */

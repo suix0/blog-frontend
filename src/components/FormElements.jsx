@@ -16,12 +16,13 @@ const InputField = ({
   value,
   children,
   htmlFor,
+  type = "text",
 }) => {
   return (
     <label htmlFor={htmlFor} className="flex flex-col gap-1">
       {children}
       <input
-        type="text"
+        type={type}
         value={value}
         name={htmlFor}
         id={htmlFor}

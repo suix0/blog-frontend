@@ -102,7 +102,7 @@ const Author = () => {
   const tinymceApi = import.meta.env.VITE_TINYMCE_API;
 
   return (
-    <div className="col-start-2 col-end-3">
+    <div className="h-full grid md:grid-cols-[1fr_800px_1fr] md:grid-rows-[80px_1fr] mx-8">
       <Header></Header>
       {error ? (
         <div className="flex justify-center items-center flex-col mt-64 gap-2">
@@ -110,7 +110,7 @@ const Author = () => {
           <p>You are not authorized to view this page.</p>
         </div>
       ) : (
-        <main className="relative">
+        <main className="relative pt-4 md:col-start-2 md:col-end-3">
           {editPost.edit ? (
             <EditPost
               post={editPost.post}

@@ -74,6 +74,7 @@ const SignIn = () => {
             setUserCredentials={setUserCredentials}
             state={userCredentials}
             htmlFor="password"
+            type="password"
           >
             Password
           </InputField>

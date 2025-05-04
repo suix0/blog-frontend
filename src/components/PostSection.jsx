@@ -13,7 +13,7 @@ const PostSection = ({
         Date uploaded: <span>{post.createdAt}</span>
       </p>
       {parse(post.content)}
-      <div className="absolute right-0 top-0 flex gap-4 m-[10px]">
+      <div className="s:absolute right-0 top-0 flex gap-4 m-[10px]">
         <button
           className="bg-frutiger rounded-frutiger shadow-frutiger border border-white/60 p-frutiger backdrop-blur-frutiger cursor-pointer"
           onClick={() => setEditPost({ edit: true, post: post })}
@@ -22,7 +22,9 @@ const PostSection = ({
         </button>
         <button
           className="bg-frutiger rounded-frutiger shadow-frutiger border border-white/60 p-frutiger backdrop-blur-frutiger cursor-pointer"
-          onClick={() => setDeletePost({ delete: true, post: post })}
+          onClick={() => {
+            setDeletePost({ delete: true, post: post });
+          }}
         >
           Delete
         </button>

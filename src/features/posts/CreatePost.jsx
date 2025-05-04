@@ -1,7 +1,7 @@
 const CreatePost = ({ setCreateBlog }) => {
   return (
     <div
-      className=" w-full h-full mt-4 cursor-pointer hover:-translate-y-1 transition-all"
+      className=" w-full mt-4 cursor-pointer hover:-translate-y-1 transition-all"
       style={{
         background: "rgba(255, 255, 255, 0.27)",
         borderRadius: "16px",
