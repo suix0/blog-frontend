@@ -44,9 +44,9 @@ const SignIn = () => {
   };
 
   return (
-    <div className="col-start-2 col-end-3">
+    <div className="h-[100svh] grid 2xl:grid-cols-[1fr_1200px_1fr] md:grid-cols-[1fr_800px_1fr] xs:grid-rows-[80px_1fr] mx-8">
       <Header></Header>
-      <div className="flex justify-center items-center flex-col gap-4 mt-48">
+      <div className="flex justify-center items-center flex-col gap-4 mt-20 md:col-start-2 md:col-end-3 xs:h-fit xs:row-start-2">
         <p className="text-lg">Sign in</p>
         <form
           action={submitForm}
@@ -55,7 +55,6 @@ const SignIn = () => {
             background: "rgba(255, 255, 255, 0.27)",
             borderRadius: "16px",
             boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
-            backdropFilter: "blur(1.5px)",
             WebkitBackdropFilter: "blur(1.5px)",
             border: "1px solid rgba(255, 255, 255, 0.62)",
             padding: "10px",

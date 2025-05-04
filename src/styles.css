@@ -76,17 +76,3 @@ body {
 #root {
   height: fit-content;
 }
-
-/* @media (width < 1217px) {
-  #root {
-    grid-template-columns: 1fr 700px 1fr;
-  }
-}
-
-@media (width < 717px) {
-  #root {
-    grid-template-columns: unset;
-    grid-template-rows: 30px 1fr 1fr 1fr;
-    margin: 0 1rem;
-  }
-} */
