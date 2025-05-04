@@ -24,6 +24,7 @@ const PostSection = ({
           className="bg-frutiger rounded-frutiger shadow-frutiger border border-white/60 p-frutiger backdrop-blur-frutiger cursor-pointer"
           onClick={() => {
             setDeletePost({ delete: true, post: post });
+            window.scrollTo(0, 0);
           }}
         >
           Delete

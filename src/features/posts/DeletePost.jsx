@@ -1,6 +1,6 @@
 const ConfirmDelete = ({ post, setDeletePost, deleteBlog }) => {
   return (
-    <div className="bg-emerald-200 rounded-frutiger shadow-frutiger border border-white/60 p-frutiger absolute inset-0 w-[300px] h-fit mx-auto text-center flex flex-col gap-4 my-auto">
+    <div className="bg-emerald-200 rounded-frutiger shadow-frutiger border border-white/60 p-frutiger absolute inset-0 w-[300px] mt-44 h-fit mx-auto text-center flex flex-col gap-4 my-auto">
       <p className="text-xl">
         Confirm deleting <span className="font-bold">{post.title}</span>?
       </p>
