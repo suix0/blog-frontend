@@ -64,7 +64,7 @@ const Home = () => {
   }
 
   return (
-    <div className="h-[100svh] grid 2xl:grid-cols-[1fr_1200px_1fr] md:grid-cols-[1fr_800px_1fr] xs:grid-rows-[80px_1fr] mx-8">
+    <div className="h-fit grid 2xl:grid-cols-[1fr_1200px_1fr] md:grid-cols-[1fr_800px_1fr] xs:grid-rows-[80px_1fr] mx-8">
       <Header></Header>
       <main className="pt-4 md:col-start-2 md:col-end-3 xs:h-fit xs:row-start-2">
         {post !== undefined && (

@@ -69,10 +69,7 @@ body {
   background-color: rgba(129, 184, 110, 0.4);
 }
 
+#root,
 body {
-  height: fit-content;
-}
-
-#root {
   height: fit-content;
 }
