@@ -14,7 +14,7 @@ const SignIn = () => {
 
   const submitForm = async () => {
     const url =
-      "http://blog-backend-production-0049.up.railway.app/api/users/sessions";
+      "https://blog-backend-production-0049.up.railway.app/api/users/sessions";
     try {
       const response = await fetch(url, {
         method: "POST",
